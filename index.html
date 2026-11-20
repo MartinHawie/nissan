@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nissan is Back — Navidad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#050608;
+  --ink:#0b0d12;
+  --white:#f4f5f7;
+  --grey:#9aa0aa;
+  --red:#ff2b3a;
+  --blue:#2f9bff;
+  --amber:#ffb24a;
+  --glass:rgba(14,17,24,.42);
+  --line:rgba(255,255,255,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:'Outfit',system-ui,sans-serif;font-weight:300;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+
+/* grain */
+body::after{content:"";position:fixed;inset:-50%;pointer-events:none;z-index:100;opacity:.07;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation:grain 1.2s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}100%{transform:translate(1%,3%)}}
+
+.label{font-size:.72rem;letter-spacing:.42em;text-transform:uppercase;font-weight:400;color:var(--grey)}
+.label b{color:var(--red);font-weight:500}
+.glass{background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);border-radius:4px}
+.wrap{width:min(1240px,90vw);margin:0 auto;position:relative;z-index:2}
+
+/* top bar */
+.top{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:22px 4vw;
+  background:linear-gradient(180deg,rgba(5,6,8,.75),rgba(5,6,8,0));transition:background .4s}
+.top img{height:34px;opacity:.95}
+.top .label{color:rgba(255,255,255,.7)}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:flex-end;overflow:hidden}
+.hero .bg{position:absolute;inset:-6%;background:url(img/julio-3.jpg) center/cover;transform:scale(1.08);animation:drift 26s ease-in-out infinite alternate}
+@keyframes drift{to{transform:scale(1.18) translate(-2%,-1%)}}
+.hero::before{content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(90deg,rgba(5,6,8,.85),rgba(5,6,8,.25) 60%,rgba(5,6,8,.1)),linear-gradient(180deg,rgba(5,6,8,.55),rgba(5,6,8,0) 30%,rgba(5,6,8,.9))}
+.hero .wrap{padding-bottom:12vh}
+.hero h1{font-weight:800;font-size:clamp(3.4rem,11.5vw,11rem);line-height:.86;letter-spacing:-.02em;text-transform:uppercase;margin:18px 0 26px}
+.hero h1 .o{color:rgba(255,255,255,.92);font-weight:200;letter-spacing:.06em}
+.hero h1 .r{color:var(--white);text-shadow:0 0 40px rgba(255,43,58,.55),0 0 2px rgba(255,43,58,.8)}
+.hero .sub{font-size:clamp(1.1rem,2vw,1.6rem);font-weight:300;max-width:640px;color:rgba(255,255,255,.88)}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:34px}
+.chip{padding:10px 18px;font-size:.78rem;letter-spacing:.24em;text-transform:uppercase;font-weight:400}
+.chip i{font-style:normal;color:var(--red);margin-right:8px}
+.scroll{position:absolute;right:4vw;bottom:5vh;z-index:3;writing-mode:vertical-rl;font-size:.65rem;letter-spacing:.5em;color:rgba(255,255,255,.55);text-transform:uppercase}
+.scroll::after{content:"";display:block;width:1px;height:60px;background:linear-gradient(var(--red),transparent);margin:14px auto 0}
+
+/* light streaks */
+.streaks{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden;mix-blend-mode:screen}
+.streaks span{position:absolute;height:2px;width:38vw;left:-40vw;border-radius:2px;filter:blur(1px);animation:streak 7s linear infinite}
+.streaks span:nth-child(1){top:62%;background:linear-gradient(90deg,transparent,var(--red));animation-delay:0s}
+.streaks span:nth-child(2){top:70%;background:linear-gradient(90deg,transparent,var(--amber));animation-delay:2.4s;animation-duration:9s}
+.streaks span:nth-child(3){top:78%;background:linear-gradient(90deg,transparent,var(--blue));animation-delay:4.1s;animation-duration:6s}
+@keyframes streak{to{left:110vw}}
+
+/* sections */
+section{position:relative;overflow:hidden}
+.pad{padding:clamp(90px,14vh,160px) 0}
+.bgimg{position:absolute;inset:0;background-size:cover;background-position:center;z-index:0}
+.shade{position:absolute;inset:0;z-index:1}
+
+/* player */
+.player{display:inline-flex;align-items:center;gap:22px;padding:14px 26px 14px 14px;border-radius:60px;margin:0 auto 60px}
+.play{width:58px;height:58px;border-radius:50%;border:0;cursor:pointer;background:var(--red);color:#fff;display:grid;place-items:center;box-shadow:0 0 0 0 rgba(255,43,58,.6),0 0 30px rgba(255,43,58,.55);transition:transform .3s}
+.play:hover{transform:scale(1.06)}
+.playing .play{animation:pulse 1.8s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,43,58,.55),0 0 30px rgba(255,43,58,.55)}100%{box-shadow:0 0 0 22px rgba(255,43,58,0),0 0 30px rgba(255,43,58,.55)}}
+.play svg{width:20px;height:20px;fill:#fff}
+.lights{display:flex;align-items:center;gap:5px;height:44px}
+.lights i{width:5px;height:5px;border-radius:50%;background:var(--c);opacity:.25;box-shadow:0 0 8px var(--c),0 0 16px var(--c);transition:opacity .12s,transform .12s}
+.ptime{font-size:.75rem;letter-spacing:.25em;color:var(--grey);min-width:86px;text-align:right;font-variant-numeric:tabular-nums}
+@media (max-width:600px){.lights i:nth-child(n+19){display:none}.player{gap:14px}}
+
+/* idea */
+.idea{background:radial-gradient(60% 80% at 85% 50%,rgba(255,43,58,.12),transparent 70%),radial-gradient(50% 70% at 10% 80%,rgba(47,155,255,.10),transparent 70%),var(--black)}
+.idea .ph{font-size:clamp(2.2rem,5.6vw,5rem);font-weight:700;line-height:1.02;text-transform:uppercase;letter-spacing:-.01em;margin-top:clamp(50px,8vh,90px)}
+.idea .ph span{color:rgba(255,255,255,.92);font-weight:200;letter-spacing:.04em}
+.idea .ph:nth-of-type(2){text-align:right}
+.idea .ph:nth-of-type(2) span{color:var(--red);font-weight:700;letter-spacing:-.01em;text-shadow:0 0 30px rgba(255,43,58,.5)}
+
+/* concepto */
+.concepto .bgimg{background-image:url(img/marco-3.jpg);filter:saturate(1.15)}
+.concepto .shade{background:linear-gradient(90deg,rgba(5,6,8,.96) 0%,rgba(5,6,8,.82) 45%,rgba(5,6,8,.35) 100%)}
+.concepto .grid{display:grid;grid-template-columns:1fr 1.25fr;gap:6vw;align-items:start}
+.big{font-size:clamp(2rem,4.2vw,3.6rem);font-weight:700;line-height:1.02;text-transform:uppercase;letter-spacing:-.01em}
+.big em{font-style:normal;color:var(--red)}
+.concepto .text{padding:clamp(28px,4vw,52px)}
+.concepto .text p{font-size:clamp(1.02rem,1.35vw,1.22rem);margin-bottom:1.1em;color:rgba(255,255,255,.88)}
+.concepto .text p.k{font-size:clamp(1.25rem,1.9vw,1.6rem);font-weight:500;color:#fff;margin-top:1.4em}
+.concepto .text .sign{font-weight:800;letter-spacing:.18em;margin-top:1.4em;color:#fff}
+
+/* paralelo */
+.paralelo{background:var(--black)}
+.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:48px}
+.tri figure{position:relative;aspect-ratio:3/4;overflow:hidden}
+.tri img{width:100%;height:100%;object-fit:cover;transform:scale(1.05);transition:transform 1.4s cubic-bezier(.2,.7,.2,1),filter 1s;filter:saturate(1.1) brightness(.85)}
+.tri figure:hover img{transform:scale(1.13);filter:saturate(1.25) brightness(1)}
+.tri figcaption{position:absolute;left:0;right:0;bottom:0;padding:26px 24px;background:linear-gradient(transparent,rgba(5,6,8,.9))}
+.tri figcaption strong{display:block;font-size:1.5rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.tri figcaption span{font-size:.75rem;letter-spacing:.32em;text-transform:uppercase;color:var(--grey)}
+.tri figure:nth-child(1) img{object-position:62% 50%}
+.tri figure:nth-child(2) img{object-position:55% 50%}
+.tri figure:nth-child(3) img{object-position:58% 50%}
+.head{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap}
+.head p{max-width:420px;color:rgba(255,255,255,.75)}
+
+/* pilares */
+.pilares .bgimg{background-image:url(img/carla-3.jpg)}
+.pilares .shade{background:linear-gradient(180deg,rgba(5,6,8,.92),rgba(5,6,8,.6) 50%,rgba(5,6,8,.95))}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:56px}
+.card{padding:38px 32px 40px;position:relative;transition:transform .6s,border-color .6s}
+.card:hover{transform:translateY(-6px);border-color:rgba(255,43,58,.5)}
+.card .n{font-size:4.2rem;font-weight:200;line-height:1;color:rgba(255,255,255,.55);margin-bottom:22px}
+.card h3{font-size:1.35rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-bottom:12px}
+.card p{color:rgba(255,255,255,.8)}
+.card::before{content:"";position:absolute;top:0;left:32px;width:42px;height:2px;background:var(--red);box-shadow:0 0 14px var(--red)}
+
+/* viajeros */
+.viajero{min-height:100vh;display:flex;align-items:center}
+.viajero .bgimg{filter:blur(2px) saturate(1.2);transform:scale(1.05)}
+.viajero .shade{background:radial-gradient(70% 90% at 30% 55%,rgba(5,6,8,.25),rgba(5,6,8,.92) 75%)}
+.viajero.rev .shade{background:radial-gradient(70% 90% at 70% 55%,rgba(5,6,8,.25),rgba(5,6,8,.92) 75%)}
+.v-grid{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:4vw;padding:120px 0 60px}
+.viajero.rev .fig{order:2}
+.fig{position:relative;display:flex;justify-content:center}
+.fig img{max-height:82vh;width:auto;position:relative;z-index:2;filter:drop-shadow(0 30px 40px rgba(0,0,0,.6))}
+.fig::before{content:"";position:absolute;z-index:1;width:70%;aspect-ratio:1;border-radius:50%;top:12%;left:15%;filter:blur(60px);opacity:.55}
+.marco .fig::before{background:radial-gradient(var(--red),transparent 70%)}
+.carla .fig::before{background:radial-gradient(var(--blue),transparent 70%)}
+.julio .fig::before{background:radial-gradient(var(--amber),transparent 70%)}
+.fig .floor{position:absolute;bottom:-6px;left:10%;right:10%;height:30px;border-radius:50%;background:radial-gradient(rgba(255,43,58,.35),transparent 70%);filter:blur(8px);z-index:1}
+.info{padding:clamp(30px,4vw,54px)}
+.info .num{font-size:.75rem;letter-spacing:.45em;text-transform:uppercase;color:rgba(255,255,255,.65)}
+.info h2{font-size:clamp(3.4rem,7vw,6.4rem);font-weight:800;line-height:.9;letter-spacing:-.01em;text-transform:uppercase;margin:12px 0 6px}
+.info .rol{font-size:1.05rem;letter-spacing:.32em;text-transform:uppercase;font-weight:400}
+.info .bar{width:56px;height:2px;margin:24px 0;box-shadow:0 0 16px currentColor}
+.marco .bar{background:var(--red);color:var(--red)}
+.carla .bar{background:var(--blue);color:var(--blue)}
+.julio .bar{background:var(--amber);color:var(--amber)}
+.info .meta{font-size:.95rem;color:var(--grey);margin-bottom:10px;letter-spacing:.04em}
+.info p.story{font-size:clamp(1.05rem,1.4vw,1.25rem);color:rgba(255,255,255,.9);max-width:460px}
+.car{display:flex;align-items:center;gap:14px;margin-top:30px;padding-top:22px;border-top:1px solid var(--line)}
+.car img{height:20px;opacity:.9}
+.car span{font-size:1.2rem;font-weight:500;letter-spacing:.04em}
+.home{position:relative;margin:0 0 110px;aspect-ratio:2.39/1;overflow:hidden;border:1px solid rgba(255,178,74,.18)}
+.home img{width:100%;height:100%;object-fit:cover;transition:transform 2s cubic-bezier(.2,.7,.2,1)}
+.home:hover img{transform:scale(1.04)}
+.home::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(5,6,8,.75),rgba(5,6,8,0) 50%),linear-gradient(0deg,rgba(5,6,8,.6),transparent 40%)}
+.home figcaption{position:absolute;z-index:2;left:clamp(20px,3vw,44px);bottom:clamp(20px,3vw,40px)}
+.home figcaption span{display:block;font-size:.72rem;letter-spacing:.42em;text-transform:uppercase;color:var(--amber);margin-bottom:8px}
+.home figcaption strong{font-size:clamp(1.6rem,3.4vw,3rem);font-weight:700;text-transform:uppercase;line-height:1;text-shadow:0 0 30px rgba(255,178,74,.35)}
+.strip{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:2px;padding-bottom:2px}
+.strip figure{overflow:hidden;height:clamp(150px,17vw,250px);position:relative}
+.strip figure:first-child{grid-row:span 1}
+.strip img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.strip figure:hover img{transform:scale(1.07)}
+.strip figure::after{content:attr(data-n);position:absolute;left:14px;bottom:10px;font-size:.62rem;letter-spacing:.35em;color:rgba(255,255,255,.75)}
+.marco .bgimg{background-image:url(img/marco-2.jpg)}
+.carla .bgimg{background-image:url(img/carla-2.jpg)}
+.julio .bgimg{background-image:url(img/julio-1.jpg)}
+.viajero{flex-direction:column;justify-content:center}
+.viajero .wrap{width:min(1240px,90vw)}
+
+/* locucion */
+.locucion{min-height:120vh;display:flex;align-items:center}
+.locucion .bgimg{background-image:url(img/julio-3.jpg);background-attachment:fixed}
+.locucion .shade{background:rgba(5,6,8,.72)}
+.vo{text-align:center}
+.vo .label{margin-bottom:56px;display:block}
+.vo p{font-size:clamp(1.5rem,3.3vw,2.8rem);font-weight:300;line-height:1.3;margin:.35em 0;color:rgba(255,255,255,.18);transition:color 1.2s,text-shadow 1.2s}
+.vo p.on{color:#fff;text-shadow:0 0 30px rgba(255,255,255,.18)}
+.vo p.end{font-weight:800;letter-spacing:.14em;margin-top:1.1em;font-size:clamp(2rem,4.6vw,4rem)}
+.vo p.end.on{text-shadow:0 0 40px rgba(255,43,58,.7)}
+
+/* formatos */
+.formatos{background:linear-gradient(180deg,var(--black),#0a0c12)}
+.fmt{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:18px;margin-top:56px}
+.fmt .f{padding:40px 34px;position:relative;overflow:hidden;min-height:300px;display:flex;flex-direction:column;justify-content:flex-end}
+.fmt .f .bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.35;transition:opacity .8s,transform 1.4s}
+.fmt .f:hover .bg{opacity:.55;transform:scale(1.05)}
+.fmt .f>*:not(.bg){position:relative}
+.fmt .t{font-size:clamp(4rem,7vw,6.5rem);font-weight:800;line-height:.9}
+.fmt .t sup{font-size:.4em;color:var(--red);vertical-align:top}
+.fmt h3{font-size:1rem;letter-spacing:.3em;text-transform:uppercase;font-weight:500;margin:16px 0 8px}
+.fmt p{color:rgba(255,255,255,.78);font-size:.98rem}
+.autos{display:flex;gap:0;margin-top:18px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.autos div{flex:1;padding:24px 0;text-align:center;border-right:1px solid var(--line)}
+.autos div:last-child{border-right:0}
+.autos b{display:block;font-size:1.25rem;font-weight:600;letter-spacing:.03em}
+.autos span{font-size:.7rem;letter-spacing:.35em;text-transform:uppercase;color:var(--grey)}
+
+/* cierre */
+.cierre{min-height:100vh;display:flex;align-items:center;text-align:center}
+.cierre .bgimg{background-image:url(img/marco-3.jpg);filter:blur(3px)}
+.cierre .shade{background:radial-gradient(60% 60% at 50% 50%,rgba(5,6,8,.55),rgba(5,6,8,.96))}
+.cierre p.q{font-size:clamp(1.4rem,2.7vw,2.4rem);font-weight:300;line-height:1.3;max-width:980px;margin:0 auto}
+.cierre p.q strong{font-weight:600}
+.cierre .logo{height:110px;margin:70px auto 26px;filter:drop-shadow(0 0 30px rgba(255,255,255,.25))}
+.cierre .back{font-size:clamp(2.4rem,6vw,5.4rem);font-weight:800;letter-spacing:.08em;text-shadow:0 0 50px rgba(255,43,58,.6)}
+footer{padding:34px 4vw;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid var(--line);font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--grey)}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(40px);transition:opacity 1.2s cubic-bezier(.2,.7,.2,1),transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.d1{transition-delay:.15s}.d2{transition-delay:.3s}.d3{transition-delay:.45s}
+
+@media (max-width:900px){
+  .concepto .grid,.v-grid,.cards,.fmt{grid-template-columns:1fr}
+  .viajero.rev .fig{order:0}
+  .fig img{max-height:62vh}
+  .tri{grid-template-columns:1fr}
+  .tri figure{aspect-ratio:16/10}
+  .strip{grid-template-columns:1fr}
+  .locucion .bgimg{background-attachment:scroll}
+  .autos{flex-direction:column}.autos div{border-right:0;border-bottom:1px solid var(--line)}
+  .top img{height:26px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <img src="img/nissan-logo.png" alt="Nissan">
+  <span class="label">Propuesta · Spot IA · Navidad</span>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="bg"></div>
+  <div class="streaks"><span></span><span></span><span></span></div>
+  <div class="wrap" style="z-index:2">
+    <span class="label rv">Campaña de Navidad <b>·</b> Nissan Perú</span>
+    <h1 class="rv d1"><span class="r">Nissan</span><br><span class="o">is back</span></h1>
+    <p class="sub rv d2">Tres familias. Tres viajeros. Tres caminos de regreso a casa.</p>
+    <div class="chips rv d3">
+      <span class="chip glass"><i>●</i>Spot 90″</span>
+      <span class="chip glass"><i>●</i>Versión 60″</span>
+      <span class="chip glass"><i>●</i>Producción con IA</span>
+    </div>
+  </div>
+  <span class="scroll">Bajar</span>
+</section>
+
+<!-- IDEA -->
+<section class="idea pad">
+  <div class="wrap">
+    <span class="label rv"><b>—</b> La idea</span>
+    <p class="ph rv">Esta Navidad, Nissan vuelve al Perú.<br><span>Y nos lleva de vuelta a casa.</span></p>
+    <p class="ph rv">Tres familias esperan.<br><span>Nissan los trae a casa.</span></p>
+    <p class="ph rv">Cada kilómetro,<br><span>un abrazo más cerca.</span></p>
+  </div>
+</section>
+
+<!-- CONCEPTO -->
+<section class="concepto pad">
+  <div class="bgimg"></div><div class="shade"></div>
+  <div class="wrap grid">
+    <div class="rv">
+      <span class="label"><b>01</b> — Concepto</span>
+      <h2 class="big" style="margin-top:22px">Nissan is back<br><em>Navidad</em></h2>
+    </div>
+    <div class="text glass rv d1">
+      <p class="k" style="margin-top:0">Tres familias. Tres viajeros. Tres caminos de regreso a casa.</p>
+      <p>Esta Navidad, tres personas emprenden un viaje por carretera para reencontrarse con sus familias. Mientras ellos avanzan hacia sus hogares a bordo de sus Nissan, sus familias se preparan para recibirlos.</p>
+      <p>Tres historias que transcurren en paralelo, unidas por una misma emoción: volver a casa en Navidad.</p>
+      <p>Nissan es el compañero de ese viaje. Los acompaña en cada kilómetro y les brinda la tranquilidad de llegar a casa para reencontrarse con quienes más quieren.</p>
+      <p class="k">Porque lo más importante de un viaje no es llegar a un destino. Es volver a estar juntos.</p>
+      <p class="sign">NISSAN IS BACK.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PARALELO -->
+<section class="paralelo pad">
+  <div class="wrap">
+    <div class="head rv">
+      <div>
+        <span class="label"><b>02</b> — Tres historias en paralelo</span>
+        <h2 class="big" style="margin-top:22px">Una misma<br>emoción</h2>
+      </div>
+      <p>Volver a casa en Navidad.</p>
+    </div>
+    <div class="tri">
+      <figure class="rv"><img src="img/marco-1.jpg" alt="Marco al volante"><figcaption><span>Viajero 01</span><strong>Marco</strong></figcaption></figure>
+      <figure class="rv d1"><img src="img/carla-1.jpg" alt="Carla al volante"><figcaption><span>Viajera 02</span><strong>Carla</strong></figcaption></figure>
+      <figure class="rv d2"><img src="img/julio-2.jpg" alt="Julio al volante"><figcaption><span>Viajero 03</span><strong>Julio</strong></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- PILARES -->
+<section class="pilares pad">
+  <div class="bgimg"></div><div class="shade"></div>
+  <div class="wrap">
+    <span class="label rv"><b>03</b> — Lo que preservamos</span>
+    <div class="cards">
+      <div class="card glass rv"><div class="n">01</div><h3>Tres familias</h3><p>No son tres personas aisladas; hay tres hogares esperando.</p></div>
+      <div class="card glass rv d1"><div class="n">02</div><h3>El viaje por carretera</h3><p>Los Nissan son protagonistas del recorrido, no simples elementos decorativos.</p></div>
+      <div class="card glass rv d2"><div class="n">03</div><h3>Seguridad y emoción</h3><p>Nissan acompaña el regreso y la recompensa es el reencuentro familiar.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARCO -->
+<section class="viajero marco">
+  <div class="bgimg"></div><div class="shade"></div>
+  <div class="wrap">
+    <div class="v-grid">
+      <div class="fig rv"><img src="img/marco-figura.png" alt="Marco"><div class="floor"></div></div>
+      <div class="info glass rv d1">
+        <span class="num">Viajero 01</span>
+        <h2>Marco</h2>
+        <span class="rol">El Padre</span>
+        <div class="bar"></div>
+        <p class="meta">42 años · Trabajador independiente</p>
+        <p class="story">Esta Navidad regresa a casa después de un largo viaje de trabajo. En casa lo esperan su esposa y sus dos hijos, que no saben que llegará esta noche.</p>
+        <div class="car"><img src="img/nissan-logo.png" alt=""><span>Nissan Frontier</span></div>
+      </div>
+    </div>
+    <div class="strip">
+      <figure class="rv" data-n="MARCO — 01"><img src="img/marco-3.jpg" alt=""></figure>
+      <figure class="rv d1" data-n="02"><img src="img/marco-2.jpg" alt=""></figure>
+      <figure class="rv d2" data-n="03"><img src="img/marco-1.jpg" alt=""></figure>
+    </div>
+    <figure class="home rv"><img src="img/familia-marco.jpg" alt="Familia de Marco"><figcaption><span>En casa lo esperan</span><strong>Su esposa y sus dos hijos</strong></figcaption></figure>
+  </div>
+</section>
+
+<!-- CARLA -->
+<section class="viajero carla rev">
+  <div class="bgimg"></div><div class="shade"></div>
+  <div class="wrap">
+    <div class="v-grid">
+      <div class="fig rv"><img src="img/carla-figura.png" alt="Carla"><div class="floor"></div></div>
+      <div class="info glass rv d1">
+        <span class="num">Viajera 02</span>
+        <h2>Carla</h2>
+        <span class="rol">La Hija</span>
+        <div class="bar"></div>
+        <p class="meta">32 años · Profesional independiente</p>
+        <p class="story">Regresa a casa esta Navidad para reencontrarse con sus padres y su hermano menor.</p>
+        <div class="car"><img src="img/nissan-logo.png" alt=""><span>Nissan Kicks Play</span></div>
+      </div>
+    </div>
+    <div class="strip">
+      <figure class="rv" data-n="CARLA — 01"><img src="img/carla-3.jpg" alt=""></figure>
+      <figure class="rv d1" data-n="02"><img src="img/carla-2.jpg" alt=""></figure>
+      <figure class="rv d2" data-n="03"><img src="img/carla-1.jpg" alt=""></figure>
+    </div>
+    <figure class="home rv"><img src="img/familia-carla.jpg" alt="Familia de Carla"><figcaption><span>En casa la esperan</span><strong>Sus padres y sus hermanos</strong></figcaption></figure>
+  </div>
+</section>
+
+<!-- JULIO -->
+<section class="viajero julio">
+  <div class="bgimg"></div><div class="shade"></div>
+  <div class="wrap">
+    <div class="v-grid">
+      <div class="fig rv"><img src="img/julio-figura.png" alt="Julio"><div class="floor"></div></div>
+      <div class="info glass rv d1">
+        <span class="num">Viajero 03</span>
+        <h2>Julio</h2>
+        <span class="rol">El Hermano</span>
+        <div class="bar"></div>
+        <p class="meta">29 años · Joven profesional</p>
+        <p class="story">Vive independientemente y regresa a casa esta Navidad para sorprender a su familia. Su abuela es quien más espera su llegada.</p>
+        <div class="car"><img src="img/nissan-logo.png" alt=""><span>Nissan All New Versa</span></div>
+      </div>
+    </div>
+    <div class="strip">
+      <figure class="rv" data-n="JULIO — 01"><img src="img/julio-1.jpg" alt=""></figure>
+      <figure class="rv d1" data-n="02"><img src="img/julio-3.jpg" alt=""></figure>
+      <figure class="rv d2" data-n="03"><img src="img/julio-2.jpg" alt=""></figure>
+    </div>
+    <figure class="home rv"><img src="img/familia-julio.jpg" alt="Familia de Julio"><figcaption><span>En casa</span><strong>Toda su familia lo espera</strong></figcaption></figure>
+  </div>
+</section>
+
+<!-- LOCUCION -->
+<section class="locucion pad">
+  <div class="bgimg"></div><div class="shade"></div>
+  <div class="wrap vo">
+    <span class="label"><b>04</b> — Locución</span>
+    <div class="player glass" id="player">
+      <button class="play" id="playBtn" aria-label="Escuchar la locución"><svg viewBox="0 0 24 24" id="ico"><path d="M7 4.5v15l13-7.5z"/></svg></button>
+      <div class="lights" id="lights"></div>
+      <span class="ptime" id="ptime">0:00 / 0:22</span>
+      <audio id="vo" src="audio/locucion.mp3" preload="metadata"></audio>
+    </div>
+    <p>Hay caminos que nos llevan lejos…</p>
+    <p>Pero siempre hay un lugar al que queremos volver.</p>
+    <p>Porque hay encuentros que valen todo el viaje.</p>
+    <p>Hay abrazos que no deberían esperar.</p>
+    <p>Esta Navidad, el mejor destino…</p>
+    <p>Siempre será volver a casa.</p>
+    <p class="end">NISSAN IS BACK.</p>
+  </div>
+</section>
+
+<!-- FORMATOS -->
+<section class="formatos pad">
+  <div class="wrap">
+    <span class="label rv"><b>05</b> — Formatos</span>
+    <div class="fmt">
+      <div class="f glass rv"><div class="bg" style="background-image:url(img/julio-3.jpg)"></div><div class="t">90<sup>″</sup></div><h3>Spot</h3><p>Duración máxima. Las tres historias en paralelo hasta el reencuentro.</p></div>
+      <div class="f glass rv d1"><div class="bg" style="background-image:url(img/carla-3.jpg)"></div><div class="t">60<sup>″</sup></div><h3>Versión</h3><p>Duración máxima.</p></div>
+      <div class="f glass rv d2"><div class="bg" style="background-image:url(img/marco-2.jpg)"></div><div class="t">IA</div><h3>Producción</h3><p>Spot realizado con inteligencia artificial.</p></div>
+    </div>
+    <div class="autos rv">
+      <div><b>Frontier</b><span>Marco</span></div>
+      <div><b>Kicks Play</b><span>Carla</span></div>
+      <div><b>All New Versa</b><span>Julio</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CIERRE -->
+<section class="cierre pad">
+  <div class="bgimg"></div><div class="shade"></div>
+  <div class="wrap">
+    <p class="q rv">La película debe hacer sentir que Nissan no solamente está de vuelta en el mercado peruano: <strong>también está llevando a las personas de vuelta a casa.</strong></p>
+    <img class="logo rv d1" src="img/nissan-logo.png" alt="Nissan">
+    <div class="back rv d2">NISSAN IS BACK</div>
+  </div>
+</section>
+
+<footer>
+  <span>Nissan is Back — Navidad</span>
+</footer>
+
+<script>
+(function(){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15});
+  document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+  var lines=[].slice.call(document.querySelectorAll('.vo p'));
+  var io2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('on')})},{rootMargin:'0px 0px -38% 0px'});
+  lines.forEach(function(p){io2.observe(p)});
+  // player
+  var au=document.getElementById('vo'),btn=document.getElementById('playBtn'),ico=document.getElementById('ico'),pl=document.getElementById('player'),tm=document.getElementById('ptime'),L=document.getElementById('lights');
+  var cols=['#ff2b3a','#ffb24a','#2f9bff'],N=28,dots=[];
+  for(var i=0;i<N;i++){var d=document.createElement('i');d.style.setProperty('--c',cols[i%3]);L.appendChild(d);dots.push(d)}
+  var ctx,an,data,raf;
+  function fmt(t){t=Math.max(0,Math.floor(t||0));return Math.floor(t/60)+':'+('0'+t%60).slice(-2)}
+  function setup(){try{ctx=new (window.AudioContext||window.webkitAudioContext)();var src=ctx.createMediaElementSource(au);an=ctx.createAnalyser();an.fftSize=64;src.connect(an);an.connect(ctx.destination);data=new Uint8Array(an.frequencyBinCount)}catch(e){an=null}}
+  function loop(){
+    var tt=performance.now()/1000;
+    var live=false;if(an){an.getByteFrequencyData(data);for(var q=0;q<data.length;q++)if(data[q]>0){live=true;break}}
+    for(var i=0;i<N;i++){var v=live?data[(i*2)%data.length]/255:(0.35+0.35*Math.sin(tt*6+i*0.7));
+      dots[i].style.opacity=(0.2+v*0.8).toFixed(2);dots[i].style.transform='translateY('+((Math.sin(tt*3+i*.5))*v*12).toFixed(1)+'px) scale('+(1+v*1.1).toFixed(2)+')'}
+    var d=au.duration||22;tm.textContent=fmt(au.currentTime)+' / '+fmt(d);
+    var k=Math.floor(au.currentTime/d*lines.length);lines.forEach(function(p,j){if(j<=k)p.classList.add('on')});
+    raf=requestAnimationFrame(loop)}
+  btn.addEventListener('click',function(){
+    if(!ctx)setup(); if(ctx&&ctx.state==='suspended')ctx.resume();
+    if(au.paused){if(au.ended||au.currentTime>=au.duration)au.currentTime=0;
+      if(au.currentTime<0.1)lines.forEach(function(p){p.classList.remove('on')});
+      var pr=au.play();if(pr&&pr.catch)pr.catch(function(){})}else au.pause()});
+  au.addEventListener('play',function(){pl.classList.add('playing');ico.innerHTML='<path d="M6 4h4v16H6zM14 4h4v16h-4z"/>';cancelAnimationFrame(raf);loop()});
+  au.addEventListener('pause',function(){pl.classList.remove('playing');ico.innerHTML='<path d="M7 4.5v15l13-7.5z"/>';cancelAnimationFrame(raf);dots.forEach(function(d){d.style.opacity='.25';d.style.transform='none'})});
+  au.addEventListener('loadedmetadata',function(){tm.textContent='0:00 / '+fmt(au.duration)});
+})();
+</script>
+</body>
+</html>
