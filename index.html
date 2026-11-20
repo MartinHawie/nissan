@@ -84,6 +84,19 @@ section{position:relative;overflow:hidden}
 .ptime{font-size:.75rem;letter-spacing:.25em;color:var(--grey);min-width:86px;text-align:right;font-variant-numeric:tabular-nums}
 @media (max-width:600px){.lights i:nth-child(n+19){display:none}.player{gap:14px}}
 
+/* lightbox */
+.tri img,.strip img,.home img{cursor:zoom-in}
+.lb{position:fixed;inset:0;z-index:200;background:rgba(5,6,8,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s}
+.lb.open{opacity:1;pointer-events:auto}
+.lb img{max-width:94vw;max-height:86vh;object-fit:contain;box-shadow:0 30px 80px rgba(0,0,0,.6);cursor:zoom-out}
+.lb button{position:absolute;background:rgba(255,255,255,.08);border:1px solid var(--line);color:#fff;width:48px;height:48px;border-radius:50%;font-size:1.4rem;cursor:pointer;display:grid;place-items:center;font-family:inherit}
+.lb button:hover{background:var(--red)}
+.lb .x{top:20px;right:20px}.lb .pv{left:20px;top:50%;transform:translateY(-50%)}.lb .nx{right:20px;top:50%;transform:translateY(-50%)}
+@media (max-width:900px){
+  .lb .pv,.lb .nx{top:auto;bottom:28px;transform:none}
+  .lb .pv{left:calc(50% - 60px)}.lb .nx{right:calc(50% - 60px)}
+}
+
 /* idea */
 .idea{background:radial-gradient(60% 80% at 85% 50%,rgba(255,43,58,.12),transparent 70%),radial-gradient(50% 70% at 10% 80%,rgba(47,155,255,.10),transparent 70%),var(--black)}
 .idea .ph{font-size:clamp(2.2rem,5.6vw,5rem);font-weight:700;line-height:1.02;text-transform:uppercase;letter-spacing:-.01em;margin-top:clamp(50px,8vh,90px)}
@@ -229,6 +242,14 @@ footer{padding:34px 4vw;display:flex;justify-content:space-between;flex-wrap:wra
   .top img{height:26px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+.home figcaption{pointer-events:none}
+@media (max-width:900px){
+  .home{aspect-ratio:auto;border:0;margin-bottom:80px}
+  .home img{aspect-ratio:16/9;height:auto}
+  .home::before{display:none}
+  .home figcaption{position:static;padding:18px 4px 0}
+  .home figcaption strong{text-shadow:none}
+}
 </style>
 </head>
 <body>
@@ -439,6 +460,8 @@ footer{padding:34px 4vw;display:flex;justify-content:space-between;flex-wrap:wra
   </div>
 </section>
 
+<div class="lb" id="lb"><button class="x" aria-label="Cerrar">×</button><button class="pv" aria-label="Anterior">‹</button><img alt=""><button class="nx" aria-label="Siguiente">›</button></div>
+
 <footer>
   <span>Nissan is Back — Navidad</span>
 </footer>
@@ -473,6 +496,18 @@ footer{padding:34px 4vw;display:flex;justify-content:space-between;flex-wrap:wra
   au.addEventListener('play',function(){pl.classList.add('playing');ico.innerHTML='<path d="M6 4h4v16H6zM14 4h4v16h-4z"/>';cancelAnimationFrame(raf);loop()});
   au.addEventListener('pause',function(){pl.classList.remove('playing');ico.innerHTML='<path d="M7 4.5v15l13-7.5z"/>';cancelAnimationFrame(raf);dots.forEach(function(d){d.style.opacity='.25';d.style.transform='none'})});
   au.addEventListener('loadedmetadata',function(){tm.textContent='0:00 / '+fmt(au.duration)});
+  // lightbox
+  var lb=document.getElementById('lb'),lbi=lb.querySelector('img'),gal=[].slice.call(document.querySelectorAll('.tri img,.strip img,.home img')),cur=0;
+  function show(i){cur=(i+gal.length)%gal.length;lbi.src=gal[cur].src;lbi.alt=gal[cur].alt}
+  gal.forEach(function(im,i){im.addEventListener('click',function(){show(i);lb.classList.add('open');document.body.style.overflow='hidden'})});
+  function close(){lb.classList.remove('open');document.body.style.overflow=''}
+  lb.querySelector('.x').addEventListener('click',close);
+  lb.addEventListener('click',function(e){if(e.target===lb||e.target===lbi)close()});
+  lb.querySelector('.pv').addEventListener('click',function(e){e.stopPropagation();show(cur-1)});
+  lb.querySelector('.nx').addEventListener('click',function(e){e.stopPropagation();show(cur+1)});
+  document.addEventListener('keydown',function(e){if(!lb.classList.contains('open'))return;if(e.key==='Escape')close();if(e.key==='ArrowLeft')show(cur-1);if(e.key==='ArrowRight')show(cur+1)});
+  var tx=null;lb.addEventListener('touchstart',function(e){tx=e.touches[0].clientX},{passive:true});
+  lb.addEventListener('touchend',function(e){if(tx===null)return;var dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)show(cur+(dx<0?1:-1));tx=null});
 })();
 </script>
 </body>
